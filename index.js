@@ -45,3 +45,20 @@ const redis = new RedisClient()
 // redis.sunionstore("Countries", "Asia", (err, data) => {
 //     console.log("SUNIONSTORE: ", data)
 // })
+
+// SORTED SET
+redis.zadd("VisitedCountries", [ 2001, "World", 2002, "Kolkata", 2005, "Mumbai" ], (err, data) => {
+    console.log(data)
+})
+redis.zrange("VisitedCountries", 0, -1, "withscores", (err, data) => {
+    console.log(data)
+})
+redis.zrevrange("VisitedCountries", 0, -1, "withscores", (err, data) => {
+    console.log(data)
+})
+redis.zrangebyscore("VisitedCountries", 2003, 2005, "withscores", (err, data) => {
+    console.table(data)
+})
+redis.zincrby("VisitedCountries", 4, "Mumbai", (err, data) => {
+    console.log(data)
+})
